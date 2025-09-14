@@ -24,7 +24,7 @@ La solución debe incluir los siguientes componentes:
 - **phpMyAdmin** para administración de base de datos
 ##  Diagrama de implementación
 
-
+![Descripción de la imagen](actividades-sumativas/parcial-01/images/diagrama-infraestructura-kubernetes.png)
 
 
 ### Especificaciones de Servicios
