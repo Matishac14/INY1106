@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  namespace: dev-k8s
+  labels:
+    app: wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+        - name: wordpress
+          image: bitnami/wordpress:latest #Uso de imagen de bitnami
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          env:
+            - name: WORDPRESS_DATABASE_HOST
+              value: mariadb.dev-k8s.svc.cluster.local
+            - name: WORDPRESS_DATABASE_PORT_NUMBER
+              value: "3306"
+            - name: WORDPRESS_DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: mariadb-user
+            - name: WORDPRESS_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: mariadb-user-password
+            - name: WORDPRESS_DATABASE_NAME
+              value: wordpress
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: wordpress-storage
+              mountPath: /bitnami/wordpress
+      volumes:
+        - name: wordpress-storage
+          persistentVolumeClaim:
+            claimName: wordpress-pvc
