@@ -12,7 +12,7 @@ spec:
   hostPath:
     path: /mnt/data/mariadb
 ---
-# Persistent Volume Claim
+# Persistent Volume Claim Wordpress
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
