@@ -35,7 +35,7 @@
 
 ## _Diagrama de implementación_
 
-![Diagrama de implementación](./parcial-01/images/diagrama-infraestructura-kubernetes.png)
+![Diagrama de implementación](https://github.com/Matishac14/INY1106/blob/parcial-01-pruebas/actividades-sumativas/parcial-01/images/diagrama-infraestructura-kubernetes.png)
 
 ----
 
@@ -88,11 +88,7 @@ actividades-sumativas
 - Modo de acceso: ReadWriteOnce
 - Ruta local: `/mnt/data/wordpress` (hostPath en Minikube)
 
-### 3. Servicios
-
-### 4. Despliegues
-
-### 5. Escalabilidad
+### 3. Escalabilidad
 
 #### Escalabilidad vertical
 
@@ -118,9 +114,8 @@ selector:
 type: NodePort    # Expone el servicio externamente
 ```
 **¿Cómo funciona?**
-- Cuando escalas WordPress a 2+ réplicas, el Service detecta automáticamente todos los pods
-- Distribuye el tráfico usando algoritmo round-robin
-- Proporciona tolerancia a fallos automática
+
+el selector filtra que pods supervisa y controla el deployment, en este caso todos los que tengan la etiqueta de wordpress
 
 ---
 
