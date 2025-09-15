@@ -35,7 +35,7 @@
 
 ## _Diagrama de implementación_
 
-![Diagrama de implementación](actividades-sumativas/parcial-01/images/diagrama-infraestructura-kubernetes.png)
+![Diagrama de implementación](./parcial-01/images/diagrama-infraestructura-kubernetes.png)
 
 ----
 
