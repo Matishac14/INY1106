@@ -24,7 +24,7 @@ La solución debe incluir los siguientes componentes:
 - **phpMyAdmin** para administración de base de datos
 ##  Diagrama de implementación
 
-![Descripción de la imagen](actividades-sumativas/parcial-01/images/diagrama-infraestructura-kubernetes.png)
+![Diagrama de implementación](actividades-sumativas/parcial-01/images/diagrama-infraestructura-kubernetes.png)
 
 
 ### Especificaciones de Servicios
@@ -91,67 +91,13 @@ La solución debe incluir los siguientes componentes:
 
 ### Criterios de Desempeño
 
-| Nivel | Porcentaje | Descripción |
-|-------|------------|-------------|
-| **Muy buen desempeño** | 100% | Demuestra un desempeño destacado, evidenciando el logro de todos los aspectos evaluados en el indicador. |
-| **Buen desempeño** | 80% | Alto Demuestra un alto desempeño del indicador, presentando pequeñas omisiones, dificultades y/o errores. |
-| **Desempeño aceptable** | 60% | Demuestra un desempeño competente, evidenciando el logro de los elementos básicos del indicador, pero con omisiones, dificultades o errores. |
-| **Desempeño incipiente** | 30% | Presenta importantes omisiones, dificultades o errores en el desempeño, que no permiten evidenciar los elementos básicos del logro del indicador, por lo que no puede ser considerado competente. |
-| **Desempeño no logrado** | 0% | Presenta ausencia o incorrecto desempeño. |
+| Nivel                    | Porcentaje | Descripción                                                                                                                                                                                       |
+|--------------------------|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Muy buen desempeño**   | 100%       | Demuestra un desempeño destacado, evidenciando el logro de todos los aspectos evaluados en el indicador.                                                                                          |
+| **Buen desempeño**       | 80%        | Alto Demuestra un alto desempeño del indicador, presentando pequeñas omisiones, dificultades y/o errores.                                                                                         |
+| **Desempeño aceptable**  | 60%        | Demuestra un desempeño competente, evidenciando el logro de los elementos básicos del indicador, pero con omisiones, dificultades o errores.                                                      |
+| **Desempeño incipiente** | 30%        | Presenta importantes omisiones, dificultades o errores en el desempeño, que no permiten evidenciar los elementos básicos del logro del indicador, por lo que no puede ser considerado competente. |
+| **Desempeño no logrado** | 0%         | Presenta ausencia o incorrecto desempeño.                                                                                                                                                         |
 
 ### Pauta de evaluación
 
-
-
-## Comandos Útiles
-
-```bash
-# Verificar estado del clúster
-kubectl cluster-info
-
-# Aplicar manifiestos
-kubectl apply -f archivo.yaml
-
-# Verificar deployments
-kubectl get deployments
-
-# Verificar services
-kubectl get services
-
-# Verificar pods
-kubectl get pods
-
-# Escalar deployment
-kubectl scale deployment nombre-deployment --replicas=X
-
-# Verificar volúmenes persistentes
-kubectl get pv
-kubectl get pvc
-```
-
-## Estructura de Archivos Recomendada
-
-```
-evaluacion-parcial-1/
-├── cluster-config/
-│   ├── namespace.yaml
-│   └── rbac.yaml
-├── storage/
-│   ├── pv-mariadb.yaml
-│   └── pvc-mariadb.yaml
-├── deployments/
-│   ├── mariadb-deployment.yaml
-│   ├── wordpress-deployment.yaml
-│   └── phpmyadmin-deployment.yaml
-├── services/
-│   ├── mariadb-service.yaml
-│   ├── wordpress-service.yaml
-│   └── phpmyadmin-service.yaml
-├── ingress/
-│   └── app-ingress.yaml
-└── README.md
-```
-
----
-
-*Esta evaluación tiene como objetivo demostrar competencias en la implementación y gestión de infraestructuras de microservicios con Kubernetes, considerando aspectos de escalabilidad, seguridad y mantenimiento.*
