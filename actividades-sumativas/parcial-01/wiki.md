@@ -127,7 +127,9 @@ type: NodePort    # Expone el servicio externamente
 ## Variables de entorno
 
 ### MariaDB (Bitnami)
-**Fuente:** [Docker Hub - bitnami/mariadb](https://hub.docker.com/r/bitnami/mariadb)
+**Fuente imagen:** [Docker Hub - bitnami/mariadb](https://hub.docker.com/r/bitnami/mariadb)
+
+**Fuente variables:** [GitHub - bitnami/mariadb](https://github.com/bitnami/containers/tree/main/bitnami/mariadb)
 
 Variables utilizadas:
 - `MARIADB_ROOT_PASSWORD`: Contraseña del usuario root
@@ -137,6 +139,8 @@ Variables utilizadas:
 
 ### WordPress (Bitnami)
 **Fuente:** [Docker Hub - bitnami/wordpress](https://hub.docker.com/r/bitnami/wordpress)
+
+**Fuente variables:** [GitHub - bitnami/wordpress](https://github.com/bitnami/containers/tree/main/bitnami/wordpress)
 
 Variables utilizadas:
 - `WORDPRESS_DATABASE_HOST`: Host de la base de datos
@@ -165,21 +169,21 @@ minikube start
 ### Aplicar manifiestos
 
 ```bash
-
+kubectl apply -f 00-namespace/namespace.yaml
+kubectl apply -f 01-secrets/database-credentials.yaml
+kubectl apply -f 02-storage/
+kubectl apply -f 03-deployments/
+kubectl apply -f 04-services/
 ```
 
 ## Comandos de validación
 
-### Verificar estado de Pods
+### Verificación de pods, services, deployments, replicasets, persistent volume, persistent volume claim y secrets
 
 ```bash
-
-```
-
-### Verificar servicios
-
-```bash
-
+kubectl get all -n dev-k8s
+kubectl get pv,pvc -n dev-k8s
+kubectl get secrets -n dev-k8s
 ```
 
 ## Comandos de acceso a servicos
@@ -187,30 +191,37 @@ minikube start
 ### Wordpress
 
 ```bash
-
+minikube service wordpress -n dev-k8s --url
 ```
 
 ### phpMyAdmin
 
 ```bash
-
+minikube service phpmyadmin -n dev-k8s --url
 ```
 
 ## Verificación de escalabilidad
 
 ### Escalabiliad vertical
 
+* **Modificación se hace manual**
+
 ### Escalabilidad Horizontal
 
 WordPress está configurado para escalar fácilmente:
+
 ```bash
-# Escalar a 2 réplicas
-kubectl scale deployment wordpress --replicas=2 -n dev-k8s
-
-# Verificar escalado
-kubectl get pods -n dev-k8s
+kubectl scale deployment wordpress --replicas=3 -n dev-k8s
+kubectl get pods -n dev-k8s -l app=wordpress
 ```
+### Eliminación de ambiente de prueba
 
+```bash
+kubectl delete all --all -n dev-k8s
+kubectl delete pvc --all -n dev-k8s
+kubectl delete pv --all
+kubectl delete secret --all -n dev-k8s
+```
 ### Detener Minikube
 
 ```bash
