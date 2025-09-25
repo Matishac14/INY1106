@@ -1,0 +1,38 @@
+name: Deploy Lambda
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Prepare Artifacts
+        run: |
+          mkdir build
+          cp src/index.mjs build
+
+      - name: Create zip file
+        run: |
+          cd build
+          zip -qr lambda.zip .
+
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v5.0.0
+        with:
+          aws-access-key-id: "{{ secrets.AWS_ACCESS_KEY_ID}}"
+          aws-secret-access-key: "{{ secrets.AWS_SECRET_ACCESS_KEY}}"
+          aws-session-token: "{{ secrets.AWS_SESSION_TOKEN}}"
+          aws-region: us-east-1
+
+      - name: Deploy Lambda Function
+        run: |
+          aws s3 cp ./build/lambda.zip s3://c181544a4673393l11774403t1w905418094019-s3bucket-fzlhfwoqfapv/lambda.zip
+          aws lambda update-function-code --function-name aws-hola-lambda --s3-bucket=c181544a4673393l11774403t1w905418094019-s3bucket-fzlhfwoqfapv --s3-key=lambda.zip
+# aws lambda create-function --function-name aws-hola-lambda --code S3Bucket=c181544a4673393l11774403t1w905418094019-s3bucket-fzlhfwoqfapv,S3Key=lambda.zip --runtime nodejs22.x --handler index.handler --role arn:aws:iam::992382780376:role/LambdaAccessToDynamoDB
